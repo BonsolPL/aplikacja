@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dziennik Vulcan++</title>
+    <link rel="stylesheet" href="wyglad.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Dziennik Vulcan++</h1>
+        <nav>
+          <a href="logowanie.html">Zaloguj</a>
+          <a href="rejestracja.html">Rejestracja</a>
+        </nav>
+      </div> 
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="powitanie">
+        <h2 id="powitanie">Witaj w Dzienniku Vulcan++</h2>
+        <p>Zaloguj się, aby zobaczyć plan lekcji.</p>
+      </section>
+
+      <div class="forms">
+        <section id="logowanie" aria-labelledby="login-title">
+          <form id="login-form">
+            <fieldset>
+              <legend id="login-title">Logowanie</legend>
+              <label for="login-email">Adres e-mail</label>
+              <input id="login-email" name="email" type="email" autocomplete="email" required />
+              <label for="login-password">Hasło</label>
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+              <button type="submit">Zaloguj</button>
+              <p class="message" aria-live="polite"></p>
+            </fieldset>
+          </form>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="dolny">
+        <p>Szymon Katana, Maciej Leszczyński 3P</p>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll("form").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const message = form.querySelector(".message");
+
+          if (form.id === "register-form" && form.elements.password.value !== form.elements.confirmation.value) {
+            message.textContent = "Hasła nie są takie same.";
+            return;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
