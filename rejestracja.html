@@ -1,69 +1,125 @@
+
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dziennik Vulcan++</title>
     <link rel="stylesheet" href="wyglad.css" />
-  </head>
-  <body>
-    <header>
-      <div class="container">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
         <h1>Dziennik Vulcan++</h1>
         <nav>
-          <a href="logowanie.html">Zaloguj</a>
-          <a href="rejestracja.html">Rejestracja</a>
+            <a href="logowanie.html">Zaloguj</a>
+            <a href="rejestracja.html">Rejestracja</a>
         </nav>
-      </div>
-    </header>
-    <main>
-      <section class="intro" aria-labelledby="powitanie">
+    </div>
+</header>
+
+<main>
+
+    <section class="intro" aria-labelledby="powitanie">
         <h2 id="powitanie">Witaj w Dzienniku Vulcan++</h2>
         <p>Zarejestruj się tutaj oraz wybierz klasę aby zobaczyć plan lekcji.</p>
-      </section>
-        <section id="rejestracja" aria-labelledby="register-title">
-          <form id="register-form">
-            <fieldset>
-              <legend id="register-title">Rejestracja</legend>
-              <label for="register-email">Adres e-mail</label>
-              <input id="register-email" name="email" type="email" autocomplete="email" required />
-              <label for="registration-code">Kod rejestracyjny</label>
-              <input id="registration-code" name="registrationCode" type="text" autocomplete="off" required />
-              <label for="register-class">Klasa</label>
-              <select id="register-class" name="class" required>
-                <option value="" selected disabled>Wybierz klasę</option>
-                <option value="1">Klasa 1</option>
-                <option value="2">Klasa 2</option>
-                <option value="3">Klasa 3</option>
-                <option value="4">Klasa 4</option>
-                <option value="5">Klasa 5</option>
-              </select>
-              <label for="register-password">Hasło (co najmniej 8 znaków)</label>
-              <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" required />
-              <label for="register-confirmation">Powtórz hasło</label>
-              <input id="register-confirmation" name="confirmation" type="password" autocomplete="new-password" minlength="8" required />
-              <button type="submit">Utwórz konto</button>
-            </fieldset>
-          </form>
-        </section>
-    </main> 
-    <footer>
-      <div class="dolny">
-        <p>Szymon Katana, Maciej Leszczyński 3P</p>
-      </div>
-    </footer>
-    <script>
-      document.querySelectorAll("form").forEach((form) => {
-        form.addEventListener("submit", (event) => {
-          event.preventDefault();
-          const message = form.querySelector(".message");
+    </section>
 
-          if (form.id === "register-form" && form.elements.password.value !== form.elements.confirmation.value) {
-            message.textContent = "Hasła nie są takie same.";
-            return;
-          }
-        });
-      });
-    </script>
-  </body>
+    <section id="rejestracja" aria-labelledby="register-title">
+
+        <form id="register-form" action="register.php" method="POST">
+
+            <fieldset>
+                <legend id="register-title">Rejestracja</legend>
+
+                <label for="register-email">Adres e-mail</label>
+                <input id="register-email" name="email"
+                    type="email" autocomplete="email" required />
+
+                <label for="registration-code">Kod rejestracyjny</label>
+                <input id="registration-code" name="registrationCode"
+                    type="text" autocomplete="off" required />
+
+                <label for="register-class">Klasa</label>
+                <select id="register-class" name="class" required>
+                    <option value="" selected disabled>Wybierz klasę</option>
+                    <option value="1">Klasa 1</option>
+                    <option value="2">Klasa 2</option>
+                    <option value="3">Klasa 3</option>
+                    <option value="4">Klasa 4</option>
+                    <option value="5">Klasa 5</option>
+                </select>
+
+                <label for="register-password">Hasło (co najmniej 8 znaków)</label>
+                <input id="register-password" name="password"
+                    type="password" autocomplete="new-password"
+                    minlength="8" required />
+
+                <label for="register-confirmation">Powtórz hasło</label>
+                <input id="register-confirmation" name="confirmation"
+                    type="password" autocomplete="new-password"
+                    minlength="8" required />
+
+                <button type="submit">Utwórz konto</button>
+
+            </fieldset>
+
+        </form>
+
+    </section>
+
+</main>
+
+<footer>
+    <div class="dolny">
+        <p>Szymon Katana, Maciej Leszczyński 3P</p>
+    </div>
+</footer>
+
+<script>
+
+document.getElementById("register-form").addEventListener("submit", function(event) {
+
+    const email = document.getElementById("register-email").value.trim();
+    const code = document.getElementById("registration-code").value.trim();
+    const selectedClass = document.getElementById("register-class").value;
+    const password = document.getElementById("register-password").value;
+    const repeatPassword = document.getElementById("register-confirmation").value;
+
+    if (!email.includes("@") || !email.includes(".")) {
+        alert("Podaj poprawny adres e-mail!");
+        event.preventDefault();
+        return;
+    }
+
+    if (code === "") {
+        alert("Podaj kod rejestracyjny!");
+        event.preventDefault();
+        return;
+    }
+
+    if (selectedClass === "") {
+        alert("Wybierz klasę!");
+        event.preventDefault();
+        return;
+    }
+
+    if (password.length < 8) {
+        alert("Hasło musi mieć co najmniej 8 znaków!");
+        event.preventDefault();
+        return;
+    }
+    if (password !== repeatPassword) {
+        alert("Podane hasła nie są identyczne!");
+        event.preventDefault();
+        return;
+    }
+
+});
+
+</script>
+
+</body>
 </html>
